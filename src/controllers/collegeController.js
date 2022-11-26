@@ -79,6 +79,7 @@ const createCollege = async function (req, res) {
 
 
 const getCollegeDetail = async function (req, res) {
+   res.setHeader('Access-Control-Allow-Origin','*')
    try {
 
       const collegeName = req.query.collegeName
@@ -101,7 +102,7 @@ const getCollegeDetail = async function (req, res) {
       //finding Interns
       const findIntern = await internModel.find({ collegeId: findCollege._id, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 })
       if (findIntern.length==0) {
-         return res.status(404).send({ status: false, message: "Interns not found" })
+         return res.status(200).send({ status: false, message: "Interns not found" })
       }
       return res.status(200).send({
          status: true,
